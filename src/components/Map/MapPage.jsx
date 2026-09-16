@@ -1,4 +1,6 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from "react";
+import Navbar from "../Navigation/Navbar";
+import Sidebar from "../Navigation/Sidebar";
 import SearchBar from "./SearchBar";
 import MapLegend from "./MapLegend";
 import MapControls from "./MapControls";
@@ -18,6 +20,7 @@ const MapPage = () => {
   const [activeLayer, setActiveLayer] = useState("roadmap"); // "roadmap" | "satellite" | "terrain"
   const [routeModeActive, setRouteModeActive] = useState(false);
   const [activeNavTab, setActiveNavTab] = useState("explore");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
   const [isDesktop, setIsDesktop] = useState(
     typeof window !== "undefined" ? window.innerWidth >= 768 : false
@@ -104,7 +107,7 @@ const MapPage = () => {
         (position) => {
           const userPos = {
             lat: position.coords.latitude,
-            lng: position.coords.longitude
+            lng: position.coords.longitude,
           };
           setUserLocation(userPos);
           if (mapInstanceRef.current) {
@@ -158,75 +161,53 @@ const MapPage = () => {
   };
 
   const handleViewDetails = (pandal) => {
-    showToast(`Opening details for ${pandal.name}...`);
+    showToast(`Viewing details for ${pandal.name}`);
   };
 
   const handleStartWalking = (pandal) => {
     setRouteModeActive(true);
-    showToast(`Walking route to ${pandal.name} (${pandal.distance})`);
+    showToast(`Walking route active for ${pandal.name} (${pandal.distance})`);
+  };
+
+  const handleSelectNavTab = (tabId) => {
+    setActiveNavTab(tabId);
+    if (tabId === "explore") {
+      showToast("Live Map & Pandal Exploration");
+    } else if (tabId === "routes") {
+      setRouteModeActive(true);
+      showToast("Curated Walking Routes active");
+    } else if (tabId === "checkins") {
+      showToast("Devotee Check-ins & Badges");
+    } else if (tabId === "profile") {
+      showToast("Devotee Profile & Stats");
+    } else if (tabId === "scoreboard") {
+      showToast("Scoreboard");
+    } else if (tabId === "metro") {
+      setMetroActive(true);
+      showToast("Kolkata Metro Lines active");
+    } else if (tabId === "aid") {
+      showToast("Kolkata Police & First Aid: Call 100 / 1090");
+    }
   };
 
   return (
     <div className="relative w-full h-screen h-[100dvh] flex flex-col bg-[#faf8ff] text-[#131b2e] overflow-hidden">
-      {/* 1. COMPACT TOP HEADER */}
-      <header className="fixed top-0 inset-x-0 z-40 bg-white/90 backdrop-blur-xl border-b border-slate-100/80 pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.03)] select-none">
-        <div className="h-14 px-4 sm:px-6 max-w-7xl mx-auto flex items-center justify-between">
-          {/* Logo & Brand title */}
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#005bb3] to-[#257ce6] flex items-center justify-center text-white shadow-[0_2px_8px_rgba(0,91,179,0.3)]">
-              <span className="material-symbols-outlined text-[20px]">
-                temple_hindu
-              </span>
-            </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-base tracking-tight text-[#131b2e]">
-                  PujoPath
-                </span>
-                <span className="text-[10px] font-bold text-[#005bb3] bg-blue-50 border border-blue-100 px-1.5 py-0.2 rounded-full uppercase tracking-wider">
-                  Live Map
-                </span>
-              </div>
-              <span className="text-[10px] text-slate-500 font-medium">
-                Maa Asche • Kolkata 2026
-              </span>
-            </div>
-          </div>
+      {/* 1. TOP NAVBAR (with Hamburger [☰] on extreme left and User Profile on right) */}
+      <Navbar
+        onOpenSidebar={() => setIsSidebarOpen(true)}
+        metroActive={metroActive}
+        onToggleMetro={handleToggleMetro}
+      />
 
-          {/* Header Action Buttons */}
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={handleToggleMetro}
-              className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${
-                metroActive
-                  ? "bg-blue-50 border-blue-200 text-[#005bb3]"
-                  : "bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100"
-              }`}
-            >
-              <span className="material-symbols-outlined text-[16px]">
-                directions_subway
-              </span>
-              <span>Metro Lines</span>
-            </button>
+      {/* 2. SIDEBAR DRAWER (slides in from left) */}
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+        activeTab={activeNavTab}
+        onSelectTab={handleSelectNavTab}
+      />
 
-            {/* Profile Avatar */}
-            <button
-              type="button"
-              className="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center hover:ring-2 hover:ring-[#005bb3]/30 transition-all"
-              title="Account"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
-                alt="User profile"
-                className="w-full h-full object-cover"
-              />
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* 2. REAL GOOGLE MAPS CANVAS & FLOATING OVERLAYS */}
+      {/* 3. REAL GOOGLE MAPS CANVAS & FLOATING OVERLAYS */}
       <main className="relative flex-1 w-full h-full pt-14 overflow-hidden">
         {/* Real Interactive Google Map */}
         <KolkataMapCanvas
@@ -267,7 +248,7 @@ const MapPage = () => {
         <div
           className={`absolute right-3 sm:right-6 z-30 pointer-events-auto transition-all ${
             selectedPandal && !isDesktop
-              ? "bottom-[290px]" // Position safely above bottom sheet on mobile
+              ? "bottom-[340px]" // Position above bottom sheet on mobile
               : "bottom-20 sm:bottom-8"
           }`}
         >
@@ -290,8 +271,9 @@ const MapPage = () => {
             className={`z-30 pointer-events-auto ${
               isDesktop
                 ? "absolute top-20 left-6"
-                : "absolute bottom-15 inset-x-0 px-2 sm:px-0"
+                : "absolute inset-x-0 px-3 pb-1 max-h-[72vh] overflow-y-auto bottom-sheet-scroll"
             }`}
+            style={!isDesktop ? { bottom: 60 } : undefined}
           >
             <PandalBottomSheet
               pandal={selectedPandal}
@@ -305,17 +287,17 @@ const MapPage = () => {
 
         {/* TOAST NOTIFICATION BANNER */}
         {toastMessage && (
-          <div className="absolute top-24 left-1/2 -translate-x-1/2 z-50 pointer-events-none bg-slate-900/90 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-lg backdrop-blur-md animate-in fade-in zoom-in-95 duration-200">
+          <div className="absolute top-24 left-1/2 -translate-x-1/2 z-50 pointer-events-none bg-slate-900/95 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-lg backdrop-blur-md animate-in fade-in zoom-in-95 duration-200 border border-white/10">
             {toastMessage}
           </div>
         )}
       </main>
 
-      {/* 3. MOBILE BOTTOM NAVIGATION */}
+      {/* 4. MOBILE BOTTOM NAVIGATION */}
       {!isDesktop && (
         <BottomNavigation
           activeTab={activeNavTab}
-          onSelectTab={setActiveNavTab}
+          onSelectTab={handleSelectNavTab}
         />
       )}
     </div>
