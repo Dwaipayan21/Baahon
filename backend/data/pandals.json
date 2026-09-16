@@ -1,0 +1,152 @@
+[
+  {
+    "name": "Bagbazar Sarbojanin",
+    "address": "78 Bagbazar Street, Kolkata, West Bengal",
+    "area": "North Kolkata",
+    "description": "Traditional Durga Puja pandal in the Bagbazar area.",
+    "image": "",
+    "location": {
+      "type": "Point",
+      "coordinates": [88.3668, 22.6012]
+    },
+    "category": "traditional",
+    "metroStation": "Shyambazar",
+    "verified": false,
+    "source": "Public pandal directory"
+  },
+  {
+    "name": "Ahiritola Jubak Brinda",
+    "address": "Ahiritola Street, Kolkata, West Bengal",
+    "area": "North Kolkata",
+    "description": "Popular Durga Puja pandal in Ahiritola.",
+    "image": "",
+    "location": {
+      "type": "Point",
+      "coordinates": [88.3558, 22.5995]
+    },
+    "category": "community",
+    "metroStation": "Shobhabazar Sutanuti",
+    "verified": false,
+    "source": "Public pandal directory"
+  },
+  {
+    "name": "Hatibagan Sarbojanin",
+    "address": "Hatibagan, Kolkata, West Bengal",
+    "area": "North Kolkata",
+    "description": "Well-known traditional Durga Puja celebration in Hatibagan.",
+    "image": "",
+    "location": {
+      "type": "Point",
+      "coordinates": [88.3708, 22.5998]
+    },
+    "category": "traditional",
+    "metroStation": "Shyambazar",
+    "verified": false,
+    "source": "Public pandal directory"
+  },
+  {
+    "name": "Kasi Bose Lane",
+    "address": "Kasi Bose Lane, Kolkata, West Bengal",
+    "area": "North Kolkata",
+    "description": "Theme-based Durga Puja pandal in North Kolkata.",
+    "image": "",
+    "location": {
+      "type": "Point",
+      "coordinates": [88.3691, 22.5917]
+    },
+    "category": "theme",
+    "metroStation": "Shyambazar",
+    "verified": false,
+    "source": "Public pandal directory"
+  },
+  {
+    "name": "Suruchi Sangha",
+    "address": "New Alipore, Kolkata, West Bengal",
+    "area": "South Kolkata",
+    "description": "Popular theme-based Durga Puja celebration in New Alipore.",
+    "image": "",
+    "location": {
+      "type": "Point",
+      "coordinates": [88.3278, 22.5057]
+    },
+    "category": "theme",
+    "metroStation": "Majerhat",
+    "verified": false,
+    "source": "Public pandal directory"
+  },
+  {
+    "name": "66 Pally",
+    "address": "Nepal Bhattacharya Street, Kalighat, Kolkata",
+    "area": "South Kolkata",
+    "description": "Community Durga Puja pandal in Kalighat.",
+    "image": "",
+    "location": {
+      "type": "Point",
+      "coordinates": [88.3469, 22.5151]
+    },
+    "category": "community",
+    "metroStation": "Kalighat",
+    "verified": false,
+    "source": "Public pandal directory"
+  },
+  {
+    "name": "Deshapriya Park",
+    "address": "Deshapriya Park, Kolkata, West Bengal",
+    "area": "South Kolkata",
+    "description": "Popular Durga Puja destination in South Kolkata.",
+    "image": "",
+    "location": {
+      "type": "Point",
+      "coordinates": [88.3524, 22.5158]
+    },
+    "category": "community",
+    "metroStation": "Rabindra Sarobar",
+    "verified": false,
+    "source": "Manual research"
+  },
+  {
+    "name": "Sree Bhumi Sporting Club",
+    "address": "Lake Town, Kolkata, West Bengal",
+    "area": "North-East Kolkata",
+    "description": "Large theme-based Durga Puja celebration in Lake Town.",
+    "image": "",
+    "location": {
+      "type": "Point",
+      "coordinates": [88.4022, 22.6052]
+    },
+    "category": "theme",
+    "metroStation": "Belgachia",
+    "verified": false,
+    "source": "Public pandal directory"
+  },
+  {
+    "name": "Beleghata Sarbojanin",
+    "address": "Phoolbagan, Kolkata, West Bengal",
+    "area": "East Kolkata",
+    "description": "Community Durga Puja pandal in the Beleghata area.",
+    "image": "",
+    "location": {
+      "type": "Point",
+      "coordinates": [88.3975, 22.5668]
+    },
+    "category": "community",
+    "metroStation": "Phoolbagan",
+    "verified": false,
+    "source": "Public pandal directory"
+  },
+  {
+    "name": "Uddipani Park Circus Sarbojanin",
+    "address": "Park Circus, Kolkata, West Bengal",
+    "area": "Central-East Kolkata",
+    "description": "Community Durga Puja celebration in Park Circus.",
+    "image": "",
+    "location": {
+      "type": "Point",
+      "coordinates": [88.3698, 22.5446]
+    },
+    "category": "community",
+    "metroStation": "Park Circus",
+    "verified": false,
+    "source": "Public pandal directory"
+  }
+]
