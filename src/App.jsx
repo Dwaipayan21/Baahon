@@ -1,12 +1,7 @@
-import React from 'react'
-import Pandals from './components/Pandals'
+import MapPage from './components/Map/MapPage'
 
 const App = () => {
-  return (
-    <>
-     <Pandals /> 
-    </>
-  )
+  return <MapPage />
 }
 
 export default App
